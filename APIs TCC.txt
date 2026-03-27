@@ -3,6 +3,14 @@ https://www.gov.br/conecta/catalogo/apis/api-portal-de-dados-abertos
 
 ----- TSE https://integrador.sp.gov.br/wps/portal/integrador/catalogoApis/API/tse-eleitores
 
+-- Os candidatos serão informados após o final do TCC - nesse caso podemos puxar os dados de candidatos que já são sugeridos pela grande mídia
+Lula (PT)
+Flavio Bolsonaro (PL)
+Fernando Haddad (PT)
+Tarcisio de Freitas (Republicanos)
+Michelle Bolsonaro (PL)
+Romeu Zema (Novo)
+
 ----- Portal da Transparencia
 documentação: https://api.portaldatransparencia.gov.br/swagger-ui/index.html
 exemplos: https://portaldatransparencia.gov.br/pagina-interna/603579-api-de-dados-exemplos-de-uso
