@@ -58,3 +58,29 @@ curl_close($curl);
 // encerra a sessão cURL e libera memória 
 
 // ------ verificar e processar resposta ------
+if ($codigo_http !== 200) {
+    // se o código não for 200 (sucesso) algo deu errado
+
+    echo json_encode(['erro' => 'A API retornou código' . $codigo_http]);
+    // json_encode > transforma um array PHP em texto JSON
+    // echo exibe a tela
+    exit;
+    // para a execução do script
+}
+
+$dados = json_decode($resposta_bruta, true);
+//json_decode > converte o texto json em array PHP 
+// true > força o resultado a ser array associativo (sem o array fica como objeto)
+// $dados > agora é um array que podemos percorrer
+
+// ---------- salvar no banco de dados ------
+
+foreach ($dados as $candidato) {
+    // para cada candidato que veio na resposta
+
+    $sql = 'INSERT INTO candidatos (nome, partido, uf, cargo)
+            VALUES (:nome, :partido, :uf; :cargo)
+            ON DUPLICATE KEY UPDATE
+             partido = :partido,
+             cargo = :cargo';
+}
