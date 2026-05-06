@@ -1,0 +1,27 @@
+DOU (diário oficial da união)
+DOEs SP
+SIAPE (servidores) - dados de servidores públicos federais via API
+SIORG (estrutura organizacional) - organograma do governo federal
+SINESP - Estatísticas de criminalidade, ocorrências, armas apreendidas
+ANS - Saúde Suplementar - planos de saúde, operadoras, beneficiários, reclamações
+
+ --------- TSE - Justiça eleitoral  --------
+Candidaturas - desde 1994 (dados pessoais, partido, cargo)
+resultados eleitorais 
+Prestação de contas (campanhas) - receitas e despesas de campanha, doadores, fornecedores
+Bens Declarados - patrimonio declarado pelos candidatos
+Filiados a partidos - Base de filiados de todos os partidos
+Boletins de urna - dados brutos de cada urna eletronica
+Eleitorado - Perfil demográfico do eleitorado por seção
+
+------ PODER JUDICIÁRIO - CNJ --------
+DataJud - Base nacional de processos judiciais (movimentações, partes, decisões)
+BNMP - Banco nacional de mandados de prisão
+SISBAJUD - Bloqueio judicial de contas bancárias
+
+------ MEIO AMBIENTE -----
+IBAMA - Autos de infração e embargos - multas ambientais, áreas embargadas, DOF (origem florestal)
+SICAR / MMA - CAR (cadastro ambiental rural) - cadastro de propriedades rurais com georreferenciamento
+
+------- TRABALHO E EMPREGO ------
+ 
