@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: white;
+}
+
+
+
+
+header {
+    display: flex; /* Criando um container pai para os elementos(flexbox) */
+
+    align-items: center; /* Uma das propriedades do flexbox, ele alinha os itens dentro de uma determinada coluna */
+
+    justify-content: space-between; /* remove as linhas */
+
+
+    gap: 12px; /* Essa propriedade define um espaceamento entre os elementos que estão dentro da coluna */
+
+    font-size: 0.8em; 
+    background: linear-gradient(40deg ,rgb(88, 156, 244), rgb(26, 1, 166));
+    padding: 1%; 
+}
+
+h1 {
+    margin-left: 10%;
+    color: white;
+} 
+
+h2 {
+    display: flex;
+    justify-content: center;
+    /* margin-top: 10%; */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-buttons {
+    width: 20%;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    background-color: #fff;
+  border: 1px solid #535353;
+  padding: 5px;
+  position: relative;
+  width: 6.2em;
+  height: 2em;
+  font-size: 17px;
+  border-radius: 0.4em;
+}
+
+button:hover {
+    background-color: #000000;
+  border: 1px solid #fffefe;
+  padding: 5px;
+  position: relative;
+  width: 6.2em;
+  height: 2em;
+  font-size: 17px;
+  color: white;
+  border-radius: 0.4em;
+}
+
+
+img {
+    display: flex;
+    margin-right: 50%;
+    justify-content: center;
+    width: 7%;
+    height: 10%;
+}
+
+.desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.cards-grid {
+    display: grid; /* o modo de espaceamento "grid" que separa as frases tipo card */
+    
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Propriedade do display grid, que configura o espaceamento */
+
+    gap: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+    margin-top: 2%;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 1.5rem 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.hero {
+    background-image: url('../img/Blue.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh; /* altura da área azul — ajuste como quiser */
+}
+
+
+.content {
+    background-color: white;
+    padding: 3% 5%;
+    height: 40%;
+    /* remova o position: relative e top: 30% que estavam antes */
+}
+
+@keyframes subirFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px); /* começa 40px abaixo */
+    }
+
+    /* Descrição de como o efeito vai funcionar, começando pela opacidade em 0. O Transform, ira traduzir o elemento para começar de uma certa posição.*/
+
+
+    to {
+        opacity: 1;
+        transform: translateY(0); /* termina na posição normal */
+    } /* E Logo em seguida a opacidade dele vai para 1 e o transform termina na posição normal */
+}
+
+
+
+.card {
+    animation: subirFadeIn 0.6s ease forwards;
+}
