@@ -34,33 +34,62 @@ $logado = $_SESSION['nome'];
 
     <aside>
         <form action="votoconsciente.php" method="POST">
+
+          <div class="cargo">
             <h2>Cargo</h2>
-            <input type="checkbox" id="vereador">
-            <label for="vereador">Vereador</label>
-            <input type="checkbox" id="deputado">
-            <label for="deputado">Deputado Estadual</label>
-            <input type="checkbox" id="deputadofederal">
-            <label for="deputadofederal">Deputado Federal</label>
-            <input type="checkbox" id="senador">
-            <label for="senador">Senador</label>
+            <div class="checkbox-row">
+              <input type="checkbox" id="vereador">
+              <label for="vereador">Vereador</label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="deputado">
+              <label for="deputado">Deputado Estadual</label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="deputadofederal">
+              <label for="deputadofederal">Deputado Federal</label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="senador">
+              <label for="senador">Senador</label>
+            </div>
+          </div>
 
+          <div class="perfil">
             <h2>Perfil</h2>
-            <input type="checkbox" id="negro(a)">
-            <label for="negro(a)">Negro(a)</label>
-            <input type="checkbox" id="mulher">
-            <label for="mulher">Mulher</label>
-            <input type="checkbox" id="lgbtqia+">
-            <label for="lgbtqia+">LGBTQIA+</label>
-            <input type="checkbox" id="indigena">
-            <label for="indigena">Indígena</label>
+            <div class="checkbox-row">
+              <input type="checkbox" id="negro(a)">
+              <label for="negro(a)">Negro(a)</label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="mulher">
+              <label for="mulher">Mulher</label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="lgbtqia+">
+              <label for="lgbtqia+">LGBTQIA+</label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="indigena">
+              <label for="indigena">Indígena</label>
+            </div>
+          </div>
 
+          <div class="proposta">
             <h2>Proposta</h2>
-            <input type="checkbox" id="educacao">
-            <label for="educacao">Educação</label>
-            <input type="checkbox" id="saude">
-            <label for="saude">Saúde</label>
-            <input type="checkbox" id="meio-ambiente">
-            <label for="meio-ambiente">Meio Ambiente</label>
+            <div class="checkbox-row">
+              <input type="checkbox" id="educacao">
+              <label for="educacao">Educação</label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="saude">
+              <label for="saude">Saúde</label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="meio-ambiente">
+              <label for="meio-ambiente">Meio Ambiente</label>
+            </div>
+          </div>
 
         </form>
     </aside>
