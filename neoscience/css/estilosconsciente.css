@@ -1,0 +1,165 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+
+html {
+    font-family: arial, Helvetica, sans-serif;
+}
+
+body {
+    background: white;
+    padding-top: 100px;
+}
+
+.Comentários {
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.Comentários h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.Comentários p {
+    color: #666;
+    font-size: 16px;
+}
+
+header {
+    background: linear-gradient(135deg, #421ec8, #0e81cd);
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    height: 80px;
+    font-size: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info .avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+input[type="checkbox"] {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    border: 2px solid #999;
+    border-radius: 4px;
+    background: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+input[type="checkbox"]:checked {
+    background: rgb(11, 61, 241);
+    border-color: rgb(11, 61, 241);
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.cargo,
+.perfil,
+.proposta {
+    margin-bottom: 24px;
+}
+
+.cargo h2,
+.perfil h2,
+.proposta h2 {
+    margin-bottom: 16px;
+    color: #333;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.cargo, .perfil, .proposta {
+    margin-bottom: 20px;
+    display: block;
+}
+
+aside {
+    background: #ffffff;
+    padding: 20px;
+    width: 200px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+}
+
+main {
+    padding-top: 100px;
+    width: calc(100% - 200px);
+}
+.janela {
+    position: relative;
+}
+
+.profile-card {
+    display: none;
+    padding: 1rem;
+    position: fixed;
+    top: calc(80px + 1rem); /* 80px = altura do header */
+    right: 1rem;
+    width: 300px;
+    margin-top: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 0.75rem;
+    max-width: 320px;
+    background-color: #fff;
+}
+
+#profile-button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    border: 2px solid #fefefe;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+.logout-link {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    padding: 8px 12px;
+    text-decoration: none;
+}
