@@ -116,7 +116,7 @@ aside {
     padding: 20px;
     width: 200px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
+    position: absolute;
 }
 
 main {

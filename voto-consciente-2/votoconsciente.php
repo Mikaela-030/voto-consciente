@@ -123,6 +123,16 @@ $usuario  = $result->fetch_assoc();
                     <input type="checkbox" name="proposta[]" value="meio-ambiente" id="meio-ambiente">
                     <label for="meio-ambiente">Meio Ambiente</label>
                 </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" name="proposta[]" value="cultura" id="cultura">
+                    <label for="cultura">Cultura</label>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" name="proposta[]" value="seguranca" id="seguranca">
+                    <label for="cultura">Segurança</label>
+                </div>
             </div>
 
             <button type="button" id="btn-buscar" class="btn-buscar">Buscar Candidatos</button>
