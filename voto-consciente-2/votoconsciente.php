@@ -15,8 +15,8 @@ $logado = $_SESSION['nome'];
 include_once('config.php');
 
 $stmt = $conexao->prepare(
-    "SELECT nome, datadenascimento, cidade, email
-     FROM cadastro WHERE nome = ?"
+    "SELECT nome_usuario AS nome, data_nascimento AS datadenascimento, email
+     FROM usuarios WHERE nome_usuario = ?"
 );
 $stmt->bind_param("s", $logado);
 $stmt->execute();
@@ -51,7 +51,6 @@ $usuario  = $result->fetch_assoc();
     <?php if ($usuario): ?>
         <p><strong>Nome:</strong>              <?= htmlspecialchars($usuario['nome']) ?></p>
         <p><strong>Data de Nascimento:</strong><?= htmlspecialchars($usuario['datadenascimento']) ?></p>
-        <p><strong>Cidade:</strong>            <?= htmlspecialchars($usuario['cidade']) ?></p>
         <p><strong>Email:</strong>             <?= htmlspecialchars($usuario['email']) ?></p>
     <?php else: ?>
         <p>Dados do perfil não encontrados.</p>
@@ -135,13 +134,15 @@ $usuario  = $result->fetch_assoc();
                 </div>
             </div>
 
-            <button type="button" id="btn-buscar" class="btn-buscar">Buscar Candidatos</button>
-            <button type="button" id="btn-limpar"  class="btn-limpar">Limpar Filtros</button>
-
-        </form>
+</form>
     </aside>
 
     <main id="main">
+        <div class="top-actions">
+            <button type="button" id="btn-buscar" class="btn-buscar">Buscar Candidatos</button>
+            <button type="button" id="btn-limpar" class="btn-limpar">Limpar Filtros</button>
+        </div>
+
         <!-- Os resultados aparecem aqui, preenchidos pelo JS -->
         <div id="resultado-candidatos">
             <p class="instrucao">Selecione os filtros ao lado e clique em <strong>Buscar Candidatos</strong>.</p>

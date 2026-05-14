@@ -1,20 +1,33 @@
 <?php
 
+$mensagem_erro = '';
+$mensagem_sucesso = '';
+
 if(isset($_POST['submit'])) {
     require_once ('config.php');
 
-    $nome = mysqli_real_escape_string($conexao, $_POST['nome']);
-    $datadenascimento = mysqli_real_escape_string($conexao, $_POST['datadenascimento']);
-    $cidade = mysqli_real_escape_string($conexao, $_POST['cidade']);
-    $email = mysqli_real_escape_string($conexao, $_POST['email']);
+    $nome  = $_POST['nome'];
+    $email = $_POST['email'];
     $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
-    $stmt = $conexao->prepare("INSERT INTO cadastro(nome,datadenascimento,cidade,email,senha) VALUES (?,?,?,?,?)");
-    $stmt->bind_param("sssss", $nome, $datadenascimento, $cidade, $email, $senha);
-    $result = $stmt->execute();
+    $stmt = $conexao->prepare(
+        "INSERT INTO usuarios (nome_usuario, senha_hash, data_nascimento, email)
+         VALUES (?, ?, ?, ?)"
+    );
+    $stmt->bind_param("ssss", $nome, $_POST['datadenascimento'], $email, $senha);
+    // Removido: cidade (não existe na tabela usuarios)
     
+    if ($stmt->execute()) {
+        header('Location: login.php');
+        exit();
+    } else {
+        if ($conexao->errno == 1062) {
+            $mensagem_erro = 'Nome de usuário ou email já cadastrado!';
+        } else {
+            $mensagem_erro = 'Erro ao realizar cadastro: ' . $conexao->error;
+        }
+    }
 }
-
 ?>
 
 
@@ -44,16 +57,22 @@ if(isset($_POST['submit'])) {
         <form action="cadastro.php" method="POST">
             <h2> Cadastro </h2>
 
-            <?php if ($mensagem): ?>
-    <div class="alert alert-<?= $tipo ?> mt-2">
-        <?= htmlspecialchars($mensagem) ?>
-    </div>
-<?php endif; ?>
+            <?php if($mensagem_sucesso): ?>
+                <div class="alert alert-success" role="alert">
+                    <?php echo $mensagem_sucesso; ?>
+                </div>
+         <?php endif; ?>
+
+            <?php if($mensagem_erro): ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $mensagem_erro; ?>
+                </div>
+         <?php endif; ?>
 
             <label for="nome" name="nome" class="form-label"> Nome de Usuário</label> <!-- Nome -->
             
             
-            <input type="text" name="nome" class="form-control" placeholder="Digite seu nome de usuário">
+            <input type="text" name="nome" class="form-control" placeholder="Digite seu nome de usuário" required>
             <br>
             
 
@@ -61,28 +80,21 @@ if(isset($_POST['submit'])) {
             
 
 
-            <input type="date" name="datadenascimento" class="form-control">
-            <br>
-            
-
-            <label for="cidade" name="cidade" class="form-label"> Cidade </label> <!-- Cidade -->
-            
-            
-            <input type="text" name="cidade" placeholder="Digite sua cidade" class="form-control">
+            <input type="date" name="datadenascimento" class="form-control" required>
             <br>
            
 
             <label for="email" name="email" class="form-label"> Email</label> <!-- Email -->
             
             
-            <input type="email" name="email" placeholder="nomesobrenome@gmail.com" class="form-control">
+            <input type="email" name="email" placeholder="nomesobrenome@gmail.com" class="form-control" required>
             <br>
             
 
             <label for="senha" name="senha" class="form-label"> Senha</label> <!-- senha -->
             
             
-            <input type="password" name="senha" placeholder="Digite Sua Senha" class="form-control">
+            <input type="password" name="senha" placeholder="Digite Sua Senha" class="form-control" required>
             <br>
             
 

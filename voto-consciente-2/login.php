@@ -20,8 +20,18 @@
         <form method="post" action="testeLogin.php">
             <fieldset>
                 <legend><b> Voto Consciente</b> </legend>
-             <h1 class="mb-3"> Login </h1> 
+             <h1 class="mb-3"> Login </h1>
 
+             <?php
+                if(isset($_GET['erro'])) {
+                    if($_GET['erro'] == 'usuario') {
+                        echo '<div class="alert alert-danger" role="alert">Usuário não encontrado!</div>';
+                    } elseif($_GET['erro'] == 'senha') {
+                        echo '<div class="alert alert-danger" role="alert">Senha incorreta!</div>';
+                    }
+                }
+             ?>
+ 
              <input type="text" class="form-control mb-4" name="nome" placeholder="Digite seu nome de usuario" required>
 
              <input type="password" class="form-control mb-4" name="senha" placeholder="Digite sua senha cadastrada" required>

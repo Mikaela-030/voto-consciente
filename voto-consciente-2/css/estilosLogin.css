@@ -1,35 +1,80 @@
-h1, h2, p {
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(../img/Fundo%20Claro%20Azul.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    background-image: url(../img/Fundo%20Claro%20Azul.jpg)
+    padding: 1.5rem;
 }
-
-html {
-    height: 100%;
-}
-
 
 .container {
-    max-width: 40% !important;
-
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
 }
 
 form {
-    border-radius: 7px;
-    background-color: rgb(255, 255, 255);
-    padding: 2em;
-    box-shadow: 0px 2px 5px 3px rgb(42, 63, 252);
+    width: 100%;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 2rem;
+    box-shadow: 0 18px 45px rgba(42, 63, 252, 0.18);
+    border: 1px solid rgba(132, 132, 246, 0.55);
 }
 
-form, fieldset {
-    border: 5px solid rgb(132, 132, 246);
+fieldset {
+    border: none;
+    padding: 0;
+}
+
+legend {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+}
+
+input.form-control,
+a.form-control {
+    width: 100%;
+    max-width: 100%;
+}
+
+a.form-control {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #0e81cd;
+    color: #fff !important;
+    border-radius: 8px;
+    padding: 0.95rem 1.1rem;
+    transition: background-color 0.2s ease;
+    text-decoration: none !important;
+}
+
+a.form-control:hover {
+    background: #0b69a9;
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 1rem;
+    }
+
+    form {
+        padding: 1.35rem;
+    }
 }
 
 /* a {
