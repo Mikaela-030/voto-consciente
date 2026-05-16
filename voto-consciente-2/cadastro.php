@@ -14,7 +14,7 @@ if(isset($_POST['submit'])) {
         "INSERT INTO usuarios (nome_usuario, senha_hash, data_nascimento, email)
          VALUES (?, ?, ?, ?)"
     );
-    $stmt->bind_param("ssss", $nome, $_POST['datadenascimento'], $email, $senha);
+    $stmt->bind_param("ssss", $nome, $senha, $_POST['datadenascimento'], $email);
     // Removido: cidade (não existe na tabela usuarios)
     
     if ($stmt->execute()) {

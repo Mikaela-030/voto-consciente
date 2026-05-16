@@ -1,8 +1,5 @@
 <?php
-// ============================================================
-//  votoconsciente.php — Tela principal com filtros
-//  Corrigido: checkboxes com name e value, integração com endpoint
-// ============================================================
+
 session_start();
 
 if (!isset($_SESSION['nome'])) {
