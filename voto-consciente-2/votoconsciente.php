@@ -68,16 +68,8 @@ $usuario  = $result->fetch_assoc();
             <div class="cargo">
                 <h2>Cargo</h2>
                 <div class="checkbox-row">
-                    <input type="checkbox" name="cargo[]" value="Vereador" id="vereador">
-                    <label for="vereador">Vereador</label>
-                </div>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="cargo[]" value="Deputado Estadual" id="deputado">
-                    <label for="deputado">Deputado Estadual</label>
-                </div>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="cargo[]" value="Deputado Federal" id="deputadofederal">
-                    <label for="deputadofederal">Deputado Federal</label>
+                    <input type="checkbox" name="cargo[]" value="Governador" id="governador">
+                    <label for="governador">Governador</label>
                 </div>
                 <div class="checkbox-row">
                     <input type="checkbox" name="cargo[]" value="Senador" id="senador">
