@@ -5,17 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/stylehome.css">
     <title>Inicio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="container">
 
         <header>
-            
-          <h1>NeoScience</h1>
+          <div style="
+            display: flex;
+            align-items: center;
+          ">
+           <img src="img/Logo.png" alt="Apenas 15%">
+           <h1>NeoScience</h1>
+          </div>
 
-          <img src="img/Logo.png" alt="Apenas 15%">
+          
 
-            <div class="nav-buttons"> 
+            <div class="nav-buttons">
+                <a href="cargo.php">
+                  <button> Cargos </button>
+                </a>  
+
                 <a href="login.php">
 
                  <button> Login </button>
@@ -36,23 +46,25 @@
           </div>
 
 
-                  <section class="content">
+              <section class="content">
             <h2>O que você vai encontrar aqui</h2>
 
 
             <div class="cards-grid">
                 <div class="card">
-                  <p class="desc">Disponibilização de conteúdos educativos sobre conceitos políticos,
-                    funções de cargos e impacto dos tipos de voto.
+                  <i class="fa-solid fa-chart-simple"></i>
+                  <p class="desc">Disponibilização de conteúdos educativos sobre conceitos   políticos, funções de cargos e impacto dos tipos de voto.
                   </p>
                 </div>
 
               <div class="card">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
                 <p class="desc">Reunir e Padronizar dados públicos 
                     sobre candidatos políticos.</p>
               </div>
 
               <div class="card">
+                <i class="fa-solid fa-info"></i>
                 <p class="desc">Promover uma participação civica mais informada.</p>
               </div>
             </div>

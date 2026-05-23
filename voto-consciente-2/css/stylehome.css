@@ -24,14 +24,18 @@ header {
 
     gap: 12px; /* Essa propriedade define um espaceamento entre os elementos que estão dentro da coluna */
 
-    font-size: 0.8em; 
-    background: linear-gradient(40deg ,rgb(2, 92, 210), rgb(26, 1, 166));
-    padding: 1%; 
+    font-size: 0.6em; 
+
+    padding: 2em;
+  
+    background: linear-gradient(40deg ,rgb(11, 3, 95), rgb(10, 2, 96));
+
 }
 
 h1 {
-    margin-left: 10%;
+    margin-left: 3%;
     color: white;
+    display: inline;
 } 
 
 h2 {
@@ -42,9 +46,9 @@ h2 {
 }
 
 .nav-buttons {
-    width: 20%;
+    width: 40%;
     display: flex;
-    gap: 10px;
+    gap: 35px;
 }
 
 button {
@@ -55,15 +59,14 @@ button {
     font-size: 16px;
     border: 2px solid #fff;
     border-radius: 4px;
-    padding: 8px 12px;
+    padding: 8px 18px;
     text-decoration: none;
 }
 
 button:hover {
     background-color: #ffffff;
   border: 2px solid #000000;
-  padding: 8px 12px;
-  position: relative;
+  padding: 8px 18px;
   font-size: 16px;
   color: rgb(0, 0, 0);
   border-radius: 0.4em;
@@ -71,11 +74,7 @@ button:hover {
 
 
 img {
-    display: flex;
-    margin-right: 50%;
-    justify-content: center;
-    width: 7%;
-    height: 10%;
+    width: 5%;
 }
 
 .desc {
@@ -97,20 +96,19 @@ img {
 }
 
 .card {
-    background: #fff;
+    background: #ffffff;
     border: 1px solid #e5e5e5;
     border-radius: 12px;
     padding: 1.5rem 1rem 1.25rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    width: 100%;
+    gap: 20px;
 }
 
 
 .hero {
-    background: linear-gradient(40deg ,rgb(4, 72, 160), rgb(26, 1, 166));
+    background: linear-gradient(40deg ,rgb(22, 3, 231), rgb(8, 1, 91));
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -127,7 +125,7 @@ img {
     border-radius: 12px;
     text-align: center;
     max-width: 600px;
-    margin-bottom: 10%;
+    margin-bottom: 2%;
     color:#ffffff;
 }
 
@@ -141,7 +139,7 @@ h3 {
     background-color: white;
     padding: 3% 0;
     height: 40%;
-    width: 100%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -172,6 +170,18 @@ h3 {
         opacity: 1;
         transform: translateY(0); /* termina na posição normal */
     } /* E Logo em seguida a opacidade dele vai para 1 e o transform termina na posição normal */
+}
+
+.fa-chart-simple {
+    font-size: 150%;
+}
+
+.fa-magnifying-glass-chart {
+    font-size: 150%;
+}
+
+.fa-info {
+    font-size: 150%;
 }
 
 
