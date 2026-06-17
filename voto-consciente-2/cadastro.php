@@ -98,11 +98,10 @@ if(isset($_POST['submit'])) {
             <br>
             
 
-            <button type="submit" name="submit" class="btn btn-primary"> Cadastrar-se </button>
-            <br>
-
-            <a class="btn btn-primary" href="home.php"> Voltar </a>
-            
+            <div class="d-flex gap-2">
+                <button type="submit" name="submit" class="btn btn-primary">Cadastrar-se</button>
+                <a class="btn btn-secondary" href="home.php">Voltar</a>
+            </div>
 
         </form>
 

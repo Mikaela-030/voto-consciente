@@ -10,6 +10,7 @@ if (!isset($_SESSION['nome'])) {
 $logado = $_SESSION['nome'];
 
 include_once('config.php');
+include_once('dados_cargos.php');
 
 $stmt = $conexao->prepare(
     "SELECT nome_usuario AS nome, data_nascimento AS datadenascimento, email

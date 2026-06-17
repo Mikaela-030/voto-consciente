@@ -22,7 +22,7 @@
           
 
             <div class="nav-buttons">
-                <a href="cargo.php">
+                <a href="cargos.php">
                   <button> Cargos </button>
                 </a>  
 
