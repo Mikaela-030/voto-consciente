@@ -21,125 +21,171 @@ $stmt->execute();
 $result   = $stmt->get_result();
 $usuario  = $result->fetch_assoc();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voto Consciente</title>
+    <title>Voto Consciente | Neo Science</title>
+
+    <!-- Tipografia e  logos  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="css/estilosconsciente.css">
 </head>
 <body>
 
-<header>
-    <div class="header-text">
-        <h1>Voto Consciente</h1>
-    </div>
-    <div class="user-info">
-        <a href="Sair.php" class="logout-link">Sair</a>
-        <button id="profile-button" class="profile-toggle" type="button">
-            <span id="user-name"><?= htmlspecialchars($logado) ?></span>
-            <span class="profile-icon">👤</span>
-        </button>
+<header class="header">
+    <div class="container header-inner">
+
+        <div class="logo-area">
+            <img src="img/logo.png"
+                 alt="neo science logo"
+                 class="logo"
+                 loading="lazy">
+            <div class="header-text">
+                <h1>Voto Consciente</h1>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <button id="profile-button" class="profile-toggle" type="button" aria-expanded="false" aria-controls="profile-card">
+                <span id="user-name"><?= htmlspecialchars($logado) ?></span>
+                <i class="fa-solid fa-circle-user profile-icon" aria-hidden="true"></i>
+            </button>
+            <a href="Sair.php" class="logout-link">
+                <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Sair
+            </a>
+        </div>
+
+        <div id="profile-card" class="profile-card">
+            <h2><i class="fa-solid fa-id-card" aria-hidden="true"></i> Meu Perfil</h2>
+            <?php if ($usuario): ?>
+                <p><strong>Nome:</strong>              <?= htmlspecialchars($usuario['nome']) ?></p>
+                <p><strong>Data de Nascimento:</strong><?= htmlspecialchars($usuario['datadenascimento']) ?></p>
+                <p><strong>Email:</strong>             <?= htmlspecialchars($usuario['email']) ?></p>
+            <?php else: ?>
+                <p>Dados do perfil não encontrados.</p>
+            <?php endif; ?>
+        </div>
+
     </div>
 </header>
 
-<div id="profile-card" class="profile-card">
-    <h2>Meu Perfil 👤</h2>
-    <?php if ($usuario): ?>
-        <p><strong>Nome:</strong>              <?= htmlspecialchars($usuario['nome']) ?></p>
-        <p><strong>Data de Nascimento:</strong><?= htmlspecialchars($usuario['datadenascimento']) ?></p>
-        <p><strong>Email:</strong>             <?= htmlspecialchars($usuario['email']) ?></p>
-    <?php else: ?>
-        <p>Dados do perfil não encontrados.</p>
-    <?php endif; ?>
-</div>
+<section class="participacao" id="busca">
+    <div class="container">
 
-<div class="janela">
+        <h2 class="secao-titulo">Encontre seu Candidato</h2>
 
-    <aside>
-        <!--
-            CORREÇÃO: adicionado name="cargo[]", name="perfil[]", name="proposta[]"
-            e value em cada checkbox.
-            O [] no name indica que podem vir múltiplos valores.
-            O JS lê esses valores e envia para o endpoint.
-        -->
-        <form id="form-filtros">
+        <div class="janela">
 
-            <div class="cargo">
-                <h2>Cargo</h2>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="cargo[]" value="Governador" id="governador">
-                    <label for="governador">Governador</label>
-                </div>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="cargo[]" value="Senador" id="senador">
-                    <label for="senador">Senador</label>
-                </div>
-            </div>
+            <aside>
+                <!--
+                    CORREÇÃO: adicionado name="cargo[]", name="perfil[]", name="proposta[]"
+                    e value em cada checkbox.
+                    O [] no name indica que podem vir múltiplos valores.
+                    O JS lê esses valores e envia para o endpoint.
+                -->
+                <form id="form-filtros">
 
-            <div class="perfil">
-                <h2>Perfil</h2>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="perfil[]" value="negro" id="negro">
-                    <label for="negro">Negro(a)</label>
-                </div>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="perfil[]" value="mulher" id="mulher">
-                    <label for="mulher">Mulher</label>
-                </div>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="perfil[]" value="lgbtqia" id="lgbtqia">
-                    <label for="lgbtqia">LGBTQIA+</label>
-                </div>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="perfil[]" value="indigena" id="indigena">
-                    <label for="indigena">Indígena</label>
-                </div>
-            </div>
+                    <div class="cargo">
+                        <h2><i class="fa-solid fa-landmark" aria-hidden="true"></i> Cargo</h2>
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="cargo[]" value="Governador" id="governador">
+                            <label for="governador">Governador</label>
+                        </div>
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="cargo[]" value="Senador" id="senador">
+                            <label for="senador">Senador</label>
+                        </div>
+                    </div>
 
-            <div class="proposta">
-                <h2>Proposta</h2>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="proposta[]" value="educacao" id="educacao">
-                    <label for="educacao">Educação</label>
+                    <div class="perfil">
+                        <h2><i class="fa-solid fa-users" aria-hidden="true"></i> Perfil</h2>
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="perfil[]" value="negro" id="negro">
+                            <label for="negro">Negro(a)</label>
+                        </div>
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="perfil[]" value="mulher" id="mulher">
+                            <label for="mulher">Mulher</label>
+                        </div>
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="perfil[]" value="lgbtqia" id="lgbtqia">
+                            <label for="lgbtqia">LGBTQIA+</label>
+                        </div>
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="perfil[]" value="indigena" id="indigena">
+                            <label for="indigena">Indígena</label>
+                        </div>
+                    </div>
+
+                    <div class="proposta">
+                        <h2><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Proposta</h2>
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="proposta[]" value="educacao" id="educacao">
+                            <label for="educacao">Educação</label>
+                        </div>
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="proposta[]" value="saude" id="saude">
+                            <label for="saude">Saúde</label>
+                        </div>
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="proposta[]" value="meio-ambiente" id="meio-ambiente">
+                            <label for="meio-ambiente">Meio Ambiente</label>
+                        </div>
+
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="proposta[]" value="cultura" id="cultura">
+                            <label for="cultura">Cultura</label>
+                        </div>
+
+                        <div class="checkbox-row">
+                            <input type="checkbox" name="proposta[]" value="seguranca" id="seguranca">
+                            <label for="cultura">Segurança</label>
+                        </div>
+                    </div>
+
+            </form>
+            </aside>
+
+            <main id="main">
+                <div class="top-actions">
+                    <button type="button" id="btn-buscar" class="btn-buscar">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Buscar Candidatos
+                    </button>
+                    <button type="button" id="btn-limpar" class="btn-limpar">
+                        <i class="fa-solid fa-eraser" aria-hidden="true"></i> Limpar Filtros
+                    </button>
                 </div>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="proposta[]" value="saude" id="saude">
-                    <label for="saude">Saúde</label>
+
+                <!-- Os resultados aparecem aqui, preenchidos pelo JS -->
+                <div id="resultado-candidatos">
+                    <p class="instrucao">Selecione os filtros ao lado e clique em <strong>Buscar Candidatos</strong>.</p>
                 </div>
-                <div class="checkbox-row">
-                    <input type="checkbox" name="proposta[]" value="meio-ambiente" id="meio-ambiente">
-                    <label for="meio-ambiente">Meio Ambiente</label>
-                </div>
+            </main>
 
-                <div class="checkbox-row">
-                    <input type="checkbox" name="proposta[]" value="cultura" id="cultura">
-                    <label for="cultura">Cultura</label>
-                </div>
+        </div><!-- .janela -->
 
-                <div class="checkbox-row">
-                    <input type="checkbox" name="proposta[]" value="seguranca" id="seguranca">
-                    <label for="cultura">Segurança</label>
-                </div>
-            </div>
+    </div>
+</section>
 
-</form>
-    </aside>
-
-    <main id="main">
-        <div class="top-actions">
-            <button type="button" id="btn-buscar" class="btn-buscar">Buscar Candidatos</button>
-            <button type="button" id="btn-limpar" class="btn-limpar">Limpar Filtros</button>
-        </div>
-
-        <!-- Os resultados aparecem aqui, preenchidos pelo JS -->
-        <div id="resultado-candidatos">
-            <p class="instrucao">Selecione os filtros ao lado e clique em <strong>Buscar Candidatos</strong>.</p>
-        </div>
-    </main>
-
-</div><!-- .janela -->
+<footer>
+    <div class="container">
+        <img src="img/brasao.jpg"
+             alt="Brasão da Justiça Eleitoral"
+             loading="lazy">
+        <h3>Justiça Eleitoral</h3>
+        <p>Portal de Representantes Políticos - Transparência e Cidadania</p>
+        <p>&copy; <?= date('Y') ?> - Todos os direitos reservados</p>
+    </div>
+</footer>
 
 <script>
 // ============================================================
@@ -254,6 +300,24 @@ function renderizarCandidatos(dados) {
     html += '</div>';
     resultado.innerHTML = html;
 }
+
+// ─── Abrir/fechar o cartão de perfil ──────────────────────────────
+// (botão já existia no HTML, mas não havia handler ligado a ele)
+const profileButton = document.getElementById('profile-button');
+const profileCard    = document.getElementById('profile-card');
+
+profileButton.addEventListener('click', (evento) => {
+    evento.stopPropagation();
+    const aberto = profileCard.classList.toggle('aberto');
+    profileButton.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+});
+
+document.addEventListener('click', (evento) => {
+    if (!profileCard.contains(evento.target) && evento.target !== profileButton) {
+        profileCard.classList.remove('aberto');
+        profileButton.setAttribute('aria-expanded', 'false');
+    }
+});
 </script>
 
 </body>
