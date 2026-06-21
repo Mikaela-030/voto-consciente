@@ -1,7 +1,7 @@
 <?php
 require_once '../config.php';
 
-// ─── Quais arquivos baixar do TSE ────────────────────────────────
+// ─── Quais arquivos baixar do TSE 
 // Estes são os arquivos públicos da eleição 2022
 // Para 2026, os URLs seguirão o mesmo padrão — só muda o ano
 
@@ -22,7 +22,7 @@ $arquivos_tse = [
     ],
 ];
 
-// ─── Criar a pasta de destino se não existir ─────────────────────
+// ─── Criar a pasta de destino se não existir
 
 $pasta = __DIR__ . '/arquivos_csv/';
 
@@ -33,12 +33,11 @@ if (!is_dir($pasta)) {
     // true        → cria pastas intermediárias se necessário
 }
 
-// ─── Baixar cada arquivo ─────────────────────────────────────────
+// ─── Baixar cada arquivo
 
 foreach ($arquivos_tse as $nome => $info) {
 
-    // Verificar no log se já foi baixado essa semana
-    // (CSVs do TSE não mudam diariamente — checar semanalmente é suficiente)
+    // Verificar no log se já foi baixado essa semana - (CSVs do TSE não mudam diariamente — checar semanalmente é suficiente)
 
     $stmt = $pdo->prepare(
         "SELECT atualizado_em FROM log_atualizacoes
@@ -47,8 +46,7 @@ foreach ($arquivos_tse as $nome => $info) {
            AND atualizado_em > NOW() - INTERVAL 7 DAY
          LIMIT 1"
     );
-    // NOW() - INTERVAL 7 DAY → "data atual menos 7 dias"
-    // ou seja: só baixa de novo se o último sucesso foi há mais de 7 dias
+    // NOW() - INTERVAL 7 DAY → "data atual menos 7 dias", ou seja: só baixa de novo se o último sucesso foi há mais de 7 dias
 
     $stmt->execute([':tabela' => 'tse_' . $nome]);
     

@@ -1,11 +1,8 @@
 <?php
-// ============================================================
-//  config.php — Conexão unificada com o banco
-//  Substitui o config.php anterior do colega
-//  Mantém compatibilidade com cadastro.php e testeLogin.php
-// ============================================================
 
-// ─── PARTE 1: Ler o arquivo .env ─────────────────────────────────
+//  config.php — Conexão unificada com o banco - Mantém compatibilidade com cadastro.php e testeLogin.php
+
+// ─── PARTE 1: Ler o arquivo .env
 
 $linhas = file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 // __DIR__ → pasta onde este arquivo está
@@ -22,7 +19,7 @@ if ($linhas) {
     }
 }
 
-// ─── PARTE 2: Conexão PDO (usada pelos arquivos de API) ──────────
+// ─── PARTE 2: Conexão PDO (usada pelos arquivos de API)
 
 try {
     $pdo = new PDO(
@@ -40,9 +37,8 @@ try {
     die(json_encode(['erro' => 'Erro na conexão com o banco: ' . $e->getMessage()]));
 }
 
-// ─── PARTE 3: Conexão mysqli (compatibilidade com cadastro e login) ──
-// O código do colega usa mysqli — mantemos as duas conexões
-// para não precisar reescrever o cadastro.php e testeLogin.php
+// ─── PARTE 3: Conexão mysqli (compatibilidade com cadastro e login)
+// O código do colega usa mysqli — mantemos as duas conexões para não precisar reescrever o cadastro.php e testeLogin.php
 
 $conexao = new mysqli(
     $_ENV['DB_HOST'],
@@ -59,7 +55,7 @@ if ($conexao->connect_errno) {
 $conexao->set_charset('utf8mb4');
 // Garante que acentos funcionem corretamente
 
-// ─── PARTE 4: Funções auxiliares de log ──────────────────────────
+// ─── PARTE 4: Funções auxiliares de log 
 
 function registrar_log(
     PDO    $pdo,

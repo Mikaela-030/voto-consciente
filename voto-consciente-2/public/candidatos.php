@@ -1,12 +1,7 @@
 <?php
-// ============================================================
+
 //  public/candidatos.php — Endpoint para o front-end
 //  Recebe os filtros do usuário e retorna candidatos em JSON
-//
-//  Como chamar (fetch no JS do front-end):
-//  POST para /public/candidatos.php
-//  Body: { cargo: [], perfil: [], proposta: [] }
-// ============================================================
 
 header('Content-Type: application/json; charset=utf-8');
 // Diz ao navegador que a resposta é JSON
@@ -16,7 +11,7 @@ header('Access-Control-Allow-Origin: *');
 
 require_once '../config.php';
 
-// ─── PARTE 1: Receber e validar os filtros ────────────────────────
+// ─── PARTE 1: Receber e validar os filtros 
 
 // Os filtros chegam via POST em formato JSON no corpo da requisição
 $body = file_get_contents('php://input');
@@ -37,7 +32,7 @@ $propostas = array_intersect($filtros['proposta'] ?? [], $propostas_validas);
 // array_intersect → mantém só os valores que existem nos dois arrays
 // Se o front mandar um valor estranho, ele é descartado aqui
 
-// ─── PARTE 2: Montar a query com os filtros ativos ────────────────
+// ─── PARTE 2: Montar a query com os filtros ativos
 
 // Começamos com a query base que sempre roda
 $sql = "SELECT 
@@ -70,7 +65,7 @@ $sql = "SELECT
 $params = [];
 // Array que vai guardar os valores dos filtros para o prepared statement
 
-// ─── Filtro de cargo ─────────────────────────────────────────────
+// ─── Filtro de cargo
 if (!empty($cargos)) {
     $placeholders = implode(',', array_fill(0, count($cargos), '?'));
     // array_fill   → cria array com N vezes '?': ['?', '?', '?']
@@ -81,7 +76,7 @@ if (!empty($cargos)) {
     // array_merge → adiciona os valores dos cargos ao array de parâmetros
 }
 
-// ─── Filtro de perfil (gênero e raça/cor) ────────────────────────
+// ─── Filtro de perfil (gênero e raça/cor)
 if (!empty($perfis)) {
     $condicoes_perfil = [];
 
@@ -116,7 +111,7 @@ if (!empty($perfis)) {
     }
 }
 
-// ─── Filtro de proposta (por área das emendas) ───────────────────
+// ─── Filtro de proposta (por área das emendas) 
 if (!empty($propostas)) {
     $placeholders = implode(',', array_fill(0, count($propostas), '?'));
     $sql .= " AND EXISTS (
@@ -130,7 +125,7 @@ if (!empty($propostas)) {
 
 $sql .= " ORDER BY c.nome ASC";
 
-// ─── PARTE 3: Executar e retornar ────────────────────────────────
+// ─── PARTE 3: Executar e retornar 
 
 try {
     $stmt = $pdo->prepare($sql);
