@@ -299,8 +299,6 @@ aside {
 }
 
 main {
-    width: calc(100% - 240px);
-    margin-left: 220px;
     min-width: 0;
 }
 
@@ -382,21 +380,28 @@ main {
 
 .cards-candidatos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.75rem;
     margin-top: 1rem;
+    grid-auto-rows: auto;
 }
 
 .card-candidato {
     background: #ffffff;
     border: 1px solid rgba(10, 37, 64, 0.1);
     border-radius: 1rem;
-    padding: 1.25rem;
+    padding: 1.5rem;
     box-shadow: 0 18px 45px rgba(10, 37, 64, 0.08);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
+    overflow: visible;
+    min-height: 1px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#resultado-candidatos {
+    overflow: visible;
 }
 
 .card-candidato:hover {
@@ -434,6 +439,7 @@ main {
 .card-propostas {
     display: grid;
     gap: 0.45rem;
+    overflow-wrap: break-word;
 }
 
 .card-info p,
@@ -455,6 +461,21 @@ main {
     color: #1d3f5e;
 }
 
+.btn-excluir-conta {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    border: none;
+    background: #d9534f;
+    color: white;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-excluir-conta:hover {
+    background: #c9302c;
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -471,6 +492,31 @@ main {
     font-size: 0.85rem;
     font-weight: 600;
     line-height: 1.2;
+}
+
+.area-emenda-item {
+    background: rgba(10, 37, 64, 0.04);
+    border-radius: 0.85rem;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.85rem;
+}
+
+.area-emenda-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem;
+    align-items: center;
+    margin-bottom: 0.55rem;
+}
+
+.descricao-emenda {
+    margin: 0.25rem 0 0;
+    color: #253450;
+    line-height: 1.6;
+    font-size: 0.92rem;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
 }
 
 /* ===== FOOTER ===== */

@@ -23,7 +23,7 @@ $filtros = json_decode($body, true) ?? [];
 // Valores permitidos para cada filtro — evita SQL injection por valores inválidos
 $cargos_validos   = ['Vereador', 'Deputado Estadual', 'Deputado Federal', 'Senador', 'Governador', 'Presidente'];
 $perfis_validos   = ['negro', 'mulher', 'lgbtqia', 'indigena'];
-$propostas_validas = ['educacao', 'saude', 'meio-ambiente', 'indigena', 'seguranca', 'infraestrutura'];
+$propostas_validas = ['educacao', 'saude', 'meio-ambiente', 'indigena', 'seguranca', 'infraestrutura', 'cultura'];
 
 // Filtrar só os valores que existem nas listas permitidas
 $cargos   = array_intersect($filtros['cargo']   ?? [], $cargos_validos);
@@ -147,16 +147,42 @@ try {
         $stmt_bens->execute([$candidato['id']]);
         $candidato['bens'] = $stmt_bens->fetchAll();
 
-        // Buscar emendas agrupadas por área
+        // Buscar emendas agrupadas por área e trazer descrições relevantes
         $stmt_emendas = $pdo->prepare(
-            "SELECT area, COUNT(*) as quantidade, SUM(valor) as total
+            "SELECT area, descricao, valor
              FROM emendas_parlamentares
              WHERE id_candidato = ?
-             GROUP BY area
-             ORDER BY total DESC"
+             ORDER BY area, descricao"
         );
         $stmt_emendas->execute([$candidato['id']]);
-        $candidato['emendas_por_area'] = $stmt_emendas->fetchAll();
+
+        $emendas_por_area = [];
+        foreach ($stmt_emendas->fetchAll() as $row) {
+            $area = $row['area'] ?? 'Sem área';
+
+            if (!isset($emendas_por_area[$area])) {
+                $emendas_por_area[$area] = [
+                    'area' => $area,
+                    'quantidade' => 0,
+                    'total' => 0.0,
+                    'descricoes' => [],
+                ];
+            }
+
+            $emendas_por_area[$area]['quantidade'] += 1;
+            $emendas_por_area[$area]['total'] += (float) $row['valor'];
+
+            $descricao = trim($row['descricao'] ?? '');
+            if ($descricao !== '' && !in_array($descricao, $emendas_por_area[$area]['descricoes'], true)) {
+                $emendas_por_area[$area]['descricoes'][] = $descricao;
+            }
+        }
+
+        usort($emendas_por_area, function ($a, $b) {
+            return $b['total'] <=> $a['total'];
+        });
+
+        $candidato['emendas_por_area'] = array_values($emendas_por_area);
 
         // Formatar valores monetários para exibição
         $candidato['total_bens_formatado']   = 'R$ ' . number_format($candidato['total_bens']   ?? 0, 2, ',', '.');

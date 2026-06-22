@@ -13,7 +13,8 @@ include_once('config.php');
 include_once('dados_cargos.php');
 
 $stmt = $conexao->prepare(
-    "SELECT nome_usuario AS nome, data_nascimento AS datadenascimento, email
+    "SELECT nome_usuario AS nome, data_nascimento AS datadenascimento, email,
+            aceite_privacidade, aceite_privacidade_em
      FROM usuarios WHERE nome_usuario = ?"
 );
 $stmt->bind_param("s", $logado);
@@ -37,7 +38,7 @@ $usuario  = $result->fetch_assoc();
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="css/estilosconsciente.css">
+    <link rel="stylesheet" href="css/estilosconsciente.css?v=1.1">
 </head>
 <body>
 
@@ -70,6 +71,13 @@ $usuario  = $result->fetch_assoc();
                 <p><strong>Nome:</strong>              <?= htmlspecialchars($usuario['nome']) ?></p>
                 <p><strong>Data de Nascimento:</strong><?= htmlspecialchars($usuario['datadenascimento']) ?></p>
                 <p><strong>Email:</strong>             <?= htmlspecialchars($usuario['email']) ?></p>
+                <p><strong>Consentimento LGPD:</strong>
+                    <?= $usuario['aceite_privacidade'] ? 'Aceito em ' . htmlspecialchars($usuario['aceite_privacidade_em']) : 'Não aceito' ?>
+                </p>
+                <p><a href="privacidade.php">Ver política de privacidade</a></p>
+                <form action="excluir_conta.php" method="post" onsubmit="return confirm('Tem certeza que deseja excluir sua conta e todos os seus dados?');">
+                    <button type="submit" class="btn-excluir-conta">Excluir minha conta</button>
+                </form>
             <?php else: ?>
                 <p>Dados do perfil não encontrados.</p>
             <?php endif; ?>
@@ -148,7 +156,7 @@ $usuario  = $result->fetch_assoc();
 
                         <div class="checkbox-row">
                             <input type="checkbox" name="proposta[]" value="seguranca" id="seguranca">
-                            <label for="cultura">Segurança</label>
+                            <label for="seguranca">Segurança</label>
                         </div>
                     </div>
 
@@ -178,11 +186,6 @@ $usuario  = $result->fetch_assoc();
 
 <footer>
     <div class="container">
-        <img src="img/brasao.jpg"
-             alt="Brasão da Justiça Eleitoral"
-             loading="lazy">
-        <h3>Justiça Eleitoral</h3>
-        <p>Portal de Representantes Políticos - Transparência e Cidadania</p>
         <p>&copy; <?= date('Y') ?> - Todos os direitos reservados</p>
     </div>
 </footer>
@@ -261,12 +264,38 @@ function renderizarCandidatos(dados) {
 
     dados.candidatos.forEach(candidato => {
 
-        // Montar lista de áreas de emendas
-        const areas = candidato.areas_emendas
-            ? candidato.areas_emendas.split(', ').map(a =>
-                `<span class="tag-area">${a}</span>`
+        // Montar lista de áreas de emendas a partir dos dados que já vêm do backend
+        const areas = Array.isArray(candidato.emendas_por_area) && candidato.emendas_por_area.length > 0
+            ? candidato.emendas_por_area.map(item =>
+                `<span class="tag-area">${item.area}</span>`
               ).join('')
-            : '<span class="tag-area">Sem emendas registradas</span>';
+            : (candidato.areas_emendas
+                ? candidato.areas_emendas.split(', ').map(a =>
+                    `<span class="tag-area">${a}</span>`
+                  ).join('')
+                : '<span class="tag-area">Sem emendas registradas</span>');
+
+        const emendasPorAreaHtml = Array.isArray(candidato.emendas_por_area) && candidato.emendas_por_area.length > 0
+            ? candidato.emendas_por_area.map(item => {
+                const totalFormatado = item.total
+                    ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.total)
+                    : 'R$ 0,00';
+                const descricoesHtml = Array.isArray(item.descricoes) && item.descricoes.length > 0
+                    ? item.descricoes.map(desc => `<p class="descricao-emenda">${desc}</p>`).join('')
+                    : '';
+
+                return `
+                    <div class="area-emenda-item">
+                        <div class="area-emenda-header">
+                            <strong>${item.area}</strong>
+                            <span>${item.quantidade} emenda(s)</span>
+                            <span>${totalFormatado}</span>
+                        </div>
+                        ${descricoesHtml}
+                    </div>
+                `;
+              }).join('')
+            : '<p>Sem detalhamento de emendas por área.</p>';
 
         html += `
             <div class="card-candidato">
@@ -291,6 +320,11 @@ function renderizarCandidatos(dados) {
                 <div class="card-propostas">
                     <strong>Áreas de atuação:</strong>
                     <div class="tags">${areas}</div>
+                </div>
+
+                <div class="card-emendas-por-area">
+                    <strong>Detalhes de emendas por área:</strong>
+                    <div class="emendas-por-area-list">${emendasPorAreaHtml}</div>
                 </div>
 
             </div>

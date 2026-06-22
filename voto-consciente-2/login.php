@@ -24,15 +24,11 @@
 
              <?php
                 if(isset($_GET['erro'])) {
-                    if($_GET['erro'] == 'usuario') {
-                        echo '<div class="alert alert-danger" role="alert">Usuário não encontrado!</div>';
-                    } elseif($_GET['erro'] == 'senha') {
-                        echo '<div class="alert alert-danger" role="alert">Senha incorreta!</div>';
-                    }
+                    echo '<div class="alert alert-danger" role="alert">Nome de usuário ou senha incorretos. Verifique seus dados e tente novamente.</div>';
                 }
              ?>
  
-             <input type="text" class="form-control mb-4" name="nome" placeholder="Digite seu nome de usuario" required>
+             <input type="text" class="form-control mb-4" name="nome" placeholder="Digite seu nome de usuário ou email" required>
 
              <input type="password" class="form-control mb-4" name="senha" placeholder="Digite sua senha cadastrada" required>
 

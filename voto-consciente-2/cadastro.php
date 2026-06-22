@@ -6,25 +6,40 @@ $mensagem_sucesso = '';
 if(isset($_POST['submit'])) {
     require_once ('config.php');
 
-    $nome  = $_POST['nome'];
-    $email = $_POST['email'];
-    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+    $checkColumn = $conexao->query("SHOW COLUMNS FROM usuarios LIKE 'aceite_privacidade'");
+    if ($checkColumn && $checkColumn->num_rows === 0) {
+        $conexao->query(
+            "ALTER TABLE usuarios
+             ADD COLUMN aceite_privacidade TINYINT(1) NOT NULL DEFAULT 0,
+             ADD COLUMN aceite_privacidade_em TIMESTAMP NULL"
+        );
+    }
 
-    $stmt = $conexao->prepare(
-        "INSERT INTO usuarios (nome_usuario, senha_hash, data_nascimento, email)
-         VALUES (?, ?, ?, ?)"
-    );
-    $stmt->bind_param("ssss", $nome, $senha, $_POST['datadenascimento'], $email);
-    // Removido: cidade (não existe na tabela usuarios)
-    
-    if ($stmt->execute()) {
-        header('Location: login.php');
-        exit();
+    $aceite_privacidade = $_POST['aceite_privacidade'] ?? '0';
+    if ($aceite_privacidade !== '1') {
+        $mensagem_erro = 'Você deve aceitar a política de privacidade para continuar.';
     } else {
-        if ($conexao->errno == 1062) {
-            $mensagem_erro = 'Nome de usuário ou email já cadastrado!';
+        $nome  = trim($_POST['nome']);
+        $email = trim($_POST['email']);
+        $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+        $aceite_privacidade_em = date('Y-m-d H:i:s');
+
+        $stmt = $conexao->prepare(
+            "INSERT INTO usuarios (nome_usuario, senha_hash, data_nascimento, email, aceite_privacidade, aceite_privacidade_em)
+             VALUES (?, ?, ?, ?, ?, ?)"
+        );
+        $stmt->bind_param("ssssss", $nome, $senha, $_POST['datadenascimento'], $email, $aceite_privacidade, $aceite_privacidade_em);
+        // Removido: cidade (não existe na tabela usuarios)
+        
+        if ($stmt->execute()) {
+            header('Location: login.php');
+            exit();
         } else {
-            $mensagem_erro = 'Erro ao realizar cadastro: ' . $conexao->error;
+            if ($conexao->errno == 1062) {
+                $mensagem_erro = 'Nome de usuário ou email já cadastrado!';
+            } else {
+                $mensagem_erro = 'Erro ao realizar cadastro: ' . $conexao->error;
+            }
         }
     }
 }
@@ -96,7 +111,14 @@ if(isset($_POST['submit'])) {
             
             <input type="password" name="senha" placeholder="Digite Sua Senha" class="form-control" required>
             <br>
-            
+
+            <input type="hidden" name="aceite_privacidade" value="0">
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="aceite_privacidade" id="aceite_privacidade" value="1" required>
+                <label class="form-check-label" for="aceite_privacidade">
+                    Eu li e aceito a <a href="privacidade.php" target="_blank">política de privacidade</a>.
+                </label>
+            </div>
 
             <div class="d-flex gap-2">
                 <button type="submit" name="submit" class="btn btn-primary">Cadastrar-se</button>

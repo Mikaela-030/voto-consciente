@@ -14,11 +14,13 @@ CREATE TABLE IF NOT EXISTS usuarios (
     senha_hash       VARCHAR(255)  NOT NULL,
     data_nascimento  DATE,
     email            VARCHAR(150),
+    aceite_privacidade TINYINT(1)  NOT NULL DEFAULT 0,
+    aceite_privacidade_em TIMESTAMP NULL,
     criado_em        TIMESTAMP     DEFAULT CURRENT_TIMESTAMP,
-
     CONSTRAINT uq_usuario UNIQUE (nome_usuario),
     CONSTRAINT uq_email   UNIQUE (email)
 );
+
 
 CREATE TABLE IF NOT EXISTS preferencias_usuario (
     id                  INT AUTO_INCREMENT PRIMARY KEY,
@@ -102,12 +104,14 @@ CREATE TABLE IF NOT EXISTS log_atualizacoes (
     mensagem_erro     TEXT
 );
 
-INSERT INTO usuarios (nome_usuario, senha_hash, data_nascimento, email)
+INSERT INTO usuarios (nome_usuario, senha_hash, data_nascimento, email, aceite_privacidade, aceite_privacidade_em)
 VALUES (
     'usuario_teste',
     '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
     '1995-08-14',
-    'teste@email.com'
+    'teste@email.com',
+    1,
+    NOW()
 );
 
 INSERT INTO preferencias_usuario (id_usuario, notificacoes_ativas, filtros_salvos)
