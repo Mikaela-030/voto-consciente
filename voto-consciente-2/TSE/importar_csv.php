@@ -138,14 +138,15 @@ if (empty($arquivos_csv)) {
 // Preparar INSERT uma vez só — fora do loop por eficiência
 $stmt_insert = $pdo->prepare(
     "INSERT INTO candidatos
-        (nome, partido, uf, cargo, cpf, genero, raca_cor, fonte, atualizado_em)
+        (nome, partido, uf, cargo, cpf, genero, raca_cor, fonte, sq_candidato, atualizado_em)
      VALUES
-        (:nome, :partido, :uf, :cargo, :cpf, :genero, :raca_cor, 'TSE', NOW())
+        (:nome, :partido, :uf, :cargo, :cpf, :genero, :raca_cor, 'TSE', :sq_candidato, NOW())
      ON DUPLICATE KEY UPDATE
          partido      = VALUES(partido),
          cargo        = VALUES(cargo),
          genero       = VALUES(genero),
          raca_cor     = VALUES(raca_cor),
+         sq_candidato = VALUES(sq_candidato),
          atualizado_em = NOW()"
 );
 
@@ -204,17 +205,14 @@ foreach ($arquivos_csv as $arquivo_csv) {
         }
 
         $stmt_insert->execute([
-            ':nome'     => mb_convert_case(mb_strtolower($nome, 'UTF-8'), MB_CASE_TITLE, 'UTF-8'),
-            // mb_strtolower + mb_convert_case (com 'UTF-8' explícito)
-            // → versões "multibyte" que entendem acentos corretamente
-            // "LUIZ INÁCIO" vira "Luiz Inácio" (acento preservado)
-            // O ucwords()/strtolower() comuns quebram acentos maiúsculos
-            ':partido'  => trim($linha[$indice['SG_PARTIDO']]           ?? ''),
-            ':uf'       => trim($linha[$indice['SG_UF']]                ?? ''),
-            ':cargo'    => mb_convert_case(mb_strtolower($cargo, 'UTF-8'), MB_CASE_TITLE, 'UTF-8'),
-            ':cpf'      => trim($linha[$indice['NR_CPF_CANDIDATO']]     ?? ''),
-            ':genero'   => trim($linha[$indice['DS_GENERO']]            ?? ''),
-            ':raca_cor' => trim($linha[$indice['DS_COR_RACA']]          ?? ''),
+            ':nome'         => mb_convert_case(mb_strtolower($nome, 'UTF-8'), MB_CASE_TITLE, 'UTF-8'),
+            ':partido'      => trim($linha[$indice['SG_PARTIDO']]       ?? ''),
+            ':uf'           => trim($linha[$indice['SG_UF']]            ?? ''),
+            ':cargo'        => mb_convert_case(mb_strtolower($cargo, 'UTF-8'), MB_CASE_TITLE, 'UTF-8'),
+            ':cpf'          => trim($linha[$indice['NR_CPF_CANDIDATO']] ?? ''),
+            ':genero'       => trim($linha[$indice['DS_GENERO']]        ?? ''),
+            ':raca_cor'     => trim($linha[$indice['DS_COR_RACA']]      ?? ''),
+            ':sq_candidato' => trim($linha[$indice['SQ_CANDIDATO']]     ?? ''),
         ]);
 
         $total_importados++;
